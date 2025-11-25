@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Header(){
+fun Header(onLogout:()->Unit){
     val colors = MaterialTheme.colorScheme
 
     Row(
@@ -60,7 +60,7 @@ fun Header(){
             modifier = Modifier.width(10.dp)
         )
         IconButton(
-            onClick = {  }
+            onClick = onLogout
         ){
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.Logout,

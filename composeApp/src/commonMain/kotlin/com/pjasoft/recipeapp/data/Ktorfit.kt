@@ -1,9 +1,12 @@
 package com.pjasoft.recipeapp.data
 
 import com.pjasoft.recipeapp.data.services.AuthService
+import com.pjasoft.recipeapp.data.services.RecipeService
 import com.pjasoft.recipeapp.data.services.createAuthService
+import com.pjasoft.recipeapp.data.services.createRecipeService
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.accept
@@ -24,6 +27,12 @@ object KtorfitClient{
                 }
             )
         }
+        install(HttpTimeout){
+            requestTimeoutMillis = 40000
+            socketTimeoutMillis = 40000
+            connectTimeoutMillis = 40000
+        }
+
         defaultRequest {
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
@@ -39,4 +48,9 @@ object KtorfitClient{
     fun createAuthService() : AuthService{
         return ktorfit.createAuthService()
     }
+
+    fun createRecipeService() : RecipeService{
+        return ktorfit.createRecipeService()
+    }
+
 }

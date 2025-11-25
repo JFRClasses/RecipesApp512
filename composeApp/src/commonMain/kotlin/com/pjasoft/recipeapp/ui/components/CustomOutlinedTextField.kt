@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material3.Icon
@@ -18,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-
+//shared preferences
 @Composable
 fun CustomOutlinedTextField(
     modifier:Modifier,
@@ -26,7 +28,9 @@ fun CustomOutlinedTextField(
     onValueChange : (String) -> Unit,
     trailingIcon : ImageVector,
     placeHolder : String,
-    onTrailingIconClick : () -> Unit
+    onTrailingIconClick : () -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ){
     val colors = MaterialTheme.colorScheme
     OutlinedTextField(
@@ -67,6 +71,8 @@ fun CustomOutlinedTextField(
             Text(
                 text = placeHolder
             )
-        }
+        },
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions
     )
 }

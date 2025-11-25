@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.pjasoft.recipeapp.data.KtorfitClient
 import com.pjasoft.recipeapp.domain.dtos.Login
 import com.pjasoft.recipeapp.domain.dtos.Register
+import com.pjasoft.recipeapp.domain.utils.Preferences
 import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
@@ -27,6 +28,8 @@ class AuthViewModel : ViewModel() {
                 if(result.isLogged){
                     // QUE EL USUARIO SE REGISTRO Y SE LOGUEO
                     println("Logueao")
+                    Preferences.saveUserId(result.userId)
+                    Preferences.saveIsLogged(result.isLogged)
                     onResult(true,result.message)
                     println(result.toString())
                 }
@@ -58,6 +61,8 @@ class AuthViewModel : ViewModel() {
                 )
                 val result = service.login(login)
                 if(result.isLogged){
+                    Preferences.saveUserId(result.userId)
+                    Preferences.saveIsLogged(result.isLogged)
                     onResult(true,result.message)
                 }
                 else{

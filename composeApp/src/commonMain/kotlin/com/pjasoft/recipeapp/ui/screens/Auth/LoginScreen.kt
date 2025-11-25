@@ -28,17 +28,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.pjasoft.recipeapp.domain.utils.Preferences
 import com.pjasoft.recipeapp.ui.viewmodels.AuthViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.reflect.KClass
 
 
 @Composable
 fun LoginScreen(navController: NavController){
     val colors = MaterialTheme.colorScheme
-    val viewModel : AuthViewModel = viewModel()
+    val viewModel: AuthViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+                return AuthViewModel() as T
+            }
+        }
+    )
+    // TODO: CHANGE THIS TO VIEWMODEL
     var isLogged by remember {
         mutableStateOf(false)
     }
@@ -49,9 +61,11 @@ fun LoginScreen(navController: NavController){
         mutableStateOf("")
     }
 
+    isLogged = Preferences.getIsLogged()
+
     LaunchedEffect(isLogged){
         if(isLogged){
-            navController.navigate(MainScreenRoute){
+            navController.navigate(HomeScreenRoute){
                 popUpTo(LoginScreenRoute){ inclusive = true }
             }
         }

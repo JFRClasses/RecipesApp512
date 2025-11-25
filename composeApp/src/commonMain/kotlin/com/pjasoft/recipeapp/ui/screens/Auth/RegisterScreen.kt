@@ -29,16 +29,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.pjasoft.recipeapp.ui.viewmodels.AuthViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import kotlin.reflect.KClass
 
 @Composable
 fun RegisterScreen(navController: NavController){
     val colors = MaterialTheme.colorScheme
-    val viewModel : AuthViewModel = viewModel()
+    val viewModel: AuthViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+                return AuthViewModel() as T
+            }
+        }
+    )
     var name by remember {
         mutableStateOf("")
     }

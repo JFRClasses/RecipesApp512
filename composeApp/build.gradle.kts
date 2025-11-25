@@ -60,6 +60,8 @@ kotlin {
             implementation("io.coil-kt.coil3:coil-compose:3.1.0")
             implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
 
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+
         }
 
         commonTest.dependencies {
@@ -73,11 +75,12 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.pjasoft.recipeapp"
+        // bitebits.carlosoft.com
+        applicationId = "com.carlossoft.bitebits"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 202511211
+        versionName = "1.0.0" // x.y.z
     }
     packaging {
         resources {

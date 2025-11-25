@@ -1,8 +1,8 @@
 package com.pjasoft.recipeapp
 
+import HomeScreenRoute
 import LoginScreen
 import LoginScreenRoute
-import MainScreen
 import MainScreenGraph
 import MainScreenRoute
 import RecipeTheme
@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.pjasoft.recipeapp.ui.screens.Auth.RegisterScreen
+import com.pjasoft.recipeapp.ui.screens.HomeScreen.HomeScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -39,7 +40,7 @@ fun App() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = MainScreenGraph
+            startDestination = LoginScreenRoute
         ){
             composable<RegisterScreenRoute> {
                 RegisterScreen(
@@ -54,13 +55,12 @@ fun App() {
                 )
             }
 
-            navigation<MainScreenGraph>(
-                startDestination = MainScreenRoute
-            ){
-               composable<MainScreenRoute> {
-                   MainScreen()
-               }
+            composable<HomeScreenRoute> {
+                HomeScreen(
+                    navController
+                )
             }
+
         }
     }
 }
